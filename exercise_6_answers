@@ -1,0 +1,51 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 11 16:32:15 2018
+
+@author: elisabeth
+"""
+
+#Redo Head Function in Python
+def headPython(file_name, n):
+    result = []
+    nlines=0
+    assert n >=1
+    for line in open(file_name):
+        result.append(line)
+        nlines+=1
+        if nlines >= n:
+            break
+    return result
+print(headPython('wages.csv',5))
+
+#print last two 2 rows in last 2 columns 
+import pandas as pd 
+data = pd.read_csv('iris.csv')
+print(data.iloc[148:150,3:5])
+
+#get number of observations for each species
+from collections import Counter
+species=data.iloc[:,4]
+print(Counter(species))
+
+#get rows with sepal witdth >3.5
+print('The rows with Sepal.Width greater than 3.5 are:')
+print(data[data['Sepal.Width'] > 3.5])
+print('\n')
+
+
+#write species setosa to 'setosa.csv'
+setosa = data[data['Species'] == "setosa"]
+setosa.to_csv('setosa.csv')
+print('All of the columns including setosa have been written to setosa.csv in your current working directory')
+print('\n')
+
+
+#Calculate mean, minimum, and maximum of Petal.Length 
+#for observations from virginica
+virginica = data[data['Species'] == 'virginica']
+petalLength = virginica.iloc[:,2]
+print('The minimum petal length is:',petalLength.min())
+print('The maximum petal length is:',petalLength.max())
+print('The mean petal length is:',petalLength.mean())
